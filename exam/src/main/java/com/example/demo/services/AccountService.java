@@ -60,7 +60,7 @@ public class AccountService {
 
     public List<TransactionEntity> getTransactions(Long id){
         List<TransactionEntity> transactions = getAccount(id).getTransactions();
-        transactions.sort(Comparator.comparing(TransactionEntity::getDate));
+        transactions.sort(Comparator.comparing(TransactionEntity::getDate).reversed());
 
         return transactions;
     }

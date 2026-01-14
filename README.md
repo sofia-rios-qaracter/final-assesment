@@ -11,28 +11,29 @@ It beneficial to a modern banking system because it's really robust and hard to 
 Make it easier and faster for developers
 
 ## Summary
+It have all the requirements needed for the exam. Have repostories, models, exceptions
 
 ## Classes of the project
 ### Controllers folder
-AccountController
-GlobalExceptionHandler
+- AccountController
+- GlobalExceptionHandler
 
 ### Dto folder
-AccountRequestDTO
+- AccountRequestDTO
 
 ### Exception folder
-AccountNotFoundException
-InsufficientBalanceException
-InvalidAmpuntException
-InvalidIbanException
-TooManyWithdrawalsException
+- AccountNotFoundException
+- InsufficientBalanceException
+- InvalidAmpuntException
+- InvalidIbanException
+- TooManyWithdrawalsException
 
 ### Models folder
-AccountEntity
-TransactionEntity
+- AccountEntity
+- TransactionEntity
 
 ### Services folder
-AccountSerice
+- AccountSerice
 
 ## Explanation
 I have try to do my best but the readme was lacking at the end

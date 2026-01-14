@@ -1,29 +1,53 @@
 package com.example.demo.services;
 
-import java.util.List;
+import com.example.demo.entities.AccountRequestDTO;
+import com.example.demo.exceptions.AccountNotFoundException;
+import com.example.demo.models.Account;
+import com.example.demo.models.Transaction;
+import com.example.demo.repositories.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class AccountService {
 
-    public AccountEntity createAccount(CreateAccountRequest request){
-        return null;
+    private final AccountRepository accountRepository;
+
+    @Autowired
+    public AccountService(AccountRepository accountRepository){
+        this.accountRepository = accountRepository;
     }
 
-    public AccountEntity getAccount(Long id){
-        return null;
+    //Eliminacion temporal de entity en account y transaction
+    // CreateAccountRequest request tiene que ir como parametro modificado
+    public Account createAccount(AccountRequestDTO account){
+        return this.accountRepository.save(new Account(account.getOwnerName(), account.getIban(),account.getBalance()));
     }
 
-    public AccountEntity deposit(Long id, Double amount){
-        // Amount > 0
-        return null;
+    public Account getAccount(Long id){
+        return this.accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
     }
 
-    public AccountEntity withdraw(Long id, Double amount){
+    public Account deposit(Long id, Double amount){
+        Account account = this.getAccount(id);
+        account.deposit(amount);
+
+        return account;
+    }
+
+    public Account withdraw(Long id, Double amount){
         // Amount > 0
         // Withdrawals not exceed avaiable balance
-        return null;
+        Account account = this.getAccount(id);
+        account.withdraw(amount);
+
+        return account;
     }
 
-    public List<TransactionEntity> getTransactions(Long id){
-        return null;
+    public List<Transaction> getTransactions(Long id){
+        return getAccount(id).getTransactions();
     }
 }

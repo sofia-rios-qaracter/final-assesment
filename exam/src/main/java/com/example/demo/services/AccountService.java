@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -58,7 +59,10 @@ public class AccountService {
     }
 
     public List<TransactionEntity> getTransactions(Long id){
-        return getAccount(id).getTransactions();
+        List<TransactionEntity> transactions = getAccount(id).getTransactions();
+        transactions.sort(Comparator.comparing(TransactionEntity::getDate));
+
+        return transactions;
     }
 
     public List<AccountEntity> getAccountByName(String name){

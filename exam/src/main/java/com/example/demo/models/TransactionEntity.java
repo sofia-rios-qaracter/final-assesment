@@ -5,12 +5,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
-import org.aspectj.lang.annotation.After;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
-public class Transaction {
+public class TransactionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,14 +30,14 @@ public class Transaction {
     LocalDateTime date;
 
     // amount > 0, amount = deposit | withdraw
-    public Transaction(@Valid String type, @Valid Double amount, @Valid Long accountId, LocalDateTime date){
+    public TransactionEntity(@Valid String type, @Valid Double amount, @Valid Long accountId, LocalDateTime date){
         this.type = type;
         this.amount = amount;
         this.accountId = accountId;
         this.date = date;
     }
 
-    public Transaction(@Valid String type, @Valid Double amount, @Valid Long accountId){
+    public TransactionEntity(@Valid String type, @Valid Double amount, @Valid Long accountId){
         this(type, amount, accountId, LocalDateTime.now());
     }
 

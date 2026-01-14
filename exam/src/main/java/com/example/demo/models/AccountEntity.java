@@ -8,13 +8,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
-import javax.annotation.processing.Generated;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Account {
+public class AccountEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,9 +29,9 @@ public class Account {
     private Double balance;
 
     @OneToMany
-    private List<Transaction> transactions;
+    private List<TransactionEntity> transactions;
 
-    public Account(@Valid String ownerName, @Valid String iban, @Valid Double balance){
+    public AccountEntity(@Valid String ownerName, @Valid String iban, @Valid Double balance){
         this.ownerName = ownerName;
         this.iban = iban;
         this.balance = balance;
@@ -44,7 +42,7 @@ public class Account {
         // amount > 0, add a transaction of type "deposit", update the balance
         if(amount <= 0) throw new InvalidAmountException("Deposited amount must be positive");
 
-        this.transactions.add(new Transaction("DEPOSIT", amount, this.id));
+        this.transactions.add(new TransactionEntity("DEPOSIT", amount, this.id));
         this.balance += amount;
     }
 
@@ -56,11 +54,11 @@ public class Account {
         if(amount <= 0) throw new InvalidAmountException("Withdraw amount must be positive");
         if(this.balance < amount) throw new InsufficientBalanceException("You don't have enough balance in your account");
 
-        this.transactions.add(new Transaction("WITHDRAW", amount, this.id));
+        this.transactions.add(new TransactionEntity("WITHDRAW", amount, this.id));
         this.balance -= amount;
     }
 
-    public List<Transaction> getTransactions(){
+    public List<TransactionEntity> getTransactions(){
         return this.transactions;
     }
 

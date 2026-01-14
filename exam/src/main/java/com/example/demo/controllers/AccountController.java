@@ -30,13 +30,13 @@ public class AccountController {
     }
 
     @PostMapping("/{id}/deposit")
-    public AccountEntity depositToAccount(@PathVariable Long id, @RequestParam Double ammount){
-        return this.accountService.deposit(id, ammount);
+    public AccountEntity depositToAccount(@PathVariable Long id, @RequestParam Double amount){
+        return this.accountService.deposit(id, amount);
     }
 
     @PostMapping("/{id}/withdraw")
-    public AccountEntity withdrawToAccount(@PathVariable Long id, @RequestParam Double ammount){
-        return this.accountService.withdraw(id, ammount);
+    public AccountEntity withdrawToAccount(@PathVariable Long id, @RequestParam Double amount){
+        return this.accountService.withdraw(id, amount);
     }
 
     @GetMapping("/{id}/transactions")

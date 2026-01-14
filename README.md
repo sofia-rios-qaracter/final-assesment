@@ -8,6 +8,8 @@ It beneficial to a modern banking system because
 
 2. What problem does JPA solve in backend development, and why should a bank avoid using raw SQL directly in productions systems?
 
+Make it easier and faster for developers
+
 ## Summary
 
 ## Classes of the project

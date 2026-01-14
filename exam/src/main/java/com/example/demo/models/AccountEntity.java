@@ -18,7 +18,7 @@ public class AccountEntity {
     private Long id;
 
     @NotNull(message = "Must have an owner name")
-    @Pattern(regexp = ".*", message = "The owner name can't be empty")
+    @Pattern(regexp = ".+", message = "The owner name can't be empty")
     private String ownerName;
 
     @NotNull(message = "Must have an IBAN associated")

@@ -27,6 +27,8 @@ public class TransactionEntity {
     @Positive(message = "Must be a positive amount")
     Double amount;
 
+    private boolean flagged;
+
     LocalDateTime date;
 
     // amount > 0, amount = deposit | withdraw
@@ -35,6 +37,7 @@ public class TransactionEntity {
         this.amount = amount;
         this.accountId = accountId;
         this.date = date;
+        this.flagged = (amount >= 10000);
     }
 
     public TransactionEntity(@Valid String type, @Valid Double amount, @Valid Long accountId){
@@ -49,11 +52,19 @@ public class TransactionEntity {
         return amount;
     }
 
+    public boolean getFlagged() {
+        return this.flagged;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
     }
 }

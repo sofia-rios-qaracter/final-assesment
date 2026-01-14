@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.AccountNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,7 +14,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(Exception.class)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException exception){
         Map<String, String> errors = new HashMap<>();
 

@@ -6,6 +6,7 @@ import com.example.demo.models.TransactionEntity;
 import com.example.demo.services.AccountService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/api/accounts")
     public void addAccount(@RequestBody AccountRequestDTO account){
         this.accountService.createAccount(account);

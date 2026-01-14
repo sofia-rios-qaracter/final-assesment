@@ -78,6 +78,7 @@ public class AccountEntity {
         return ownerName;
     }
 
+
     public void setOwnerName(@Valid String ownerName) {
         this.ownerName = ownerName;
     }

@@ -2,12 +2,14 @@ package com.example.demo.services;
 
 import com.example.demo.dto.AccountRequestDTO;
 import com.example.demo.exceptions.AccountNotFoundException;
+import com.example.demo.exceptions.TooManyWithdrawalsException;
 import com.example.demo.models.AccountEntity;
 import com.example.demo.models.TransactionEntity;
 import com.example.demo.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -41,6 +43,15 @@ public class AccountService {
         // Amount > 0
         // Withdrawals not exceed avaiable balance
         AccountEntity account = this.getAccount(id);
+
+        List<TransactionEntity> transactions = account.getTransactions();
+        if(
+                transactions.stream()
+                        .filter(transactionEntity ->
+                                LocalDateTime.now().minusMinutes(10).isBefore(transactionEntity.getDate())
+                        ).toList().size() > 3
+        ) throw new TooManyWithdrawalsException("There has been to many withdrawals");
+
         account.withdraw(amount);
 
         return account;

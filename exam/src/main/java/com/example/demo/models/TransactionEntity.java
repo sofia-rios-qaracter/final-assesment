@@ -52,6 +52,10 @@ public class TransactionEntity {
         return amount;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
     public boolean getFlagged() {
         return this.flagged;
     }

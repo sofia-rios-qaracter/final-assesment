@@ -17,7 +17,8 @@ public class Transaction {
     Long id;
 
     @NotNull(message = "Account id cannot be null")
-    @OneToMany(mappedBy = "account")
+    @ManyToOne
+    @JoinColumn(name = "accountId")
     Long accountId;
 
     @NotNull(message = "Transactions must have a type")

@@ -30,6 +30,7 @@ public class Account {
     @Positive(message = "Balance must be a positive")
     private Double balance;
 
+    @OneToMany
     private List<Transaction> transactions;
 
     public Account(@Valid String ownerName, @Valid String iban, @Valid Double balance){
@@ -43,7 +44,7 @@ public class Account {
         // amount > 0, add a transaction of type "deposit", update the balance
         if(amount <= 0) throw new InvalidAmountException("Deposited amount must be positive");
 
-        this.transactions.add(new Transaction("DEPOSIT", amount));
+        this.transactions.add(new Transaction("DEPOSIT", amount, this.id));
         this.balance += amount;
     }
 
@@ -55,7 +56,7 @@ public class Account {
         if(amount <= 0) throw new InvalidAmountException("Withdraw amount must be positive");
         if(this.balance < amount) throw new InsufficientBalanceException("You don't have enough balance in your account");
 
-        this.transactions.add(new Transaction("WITHDRAW", amount));
+        this.transactions.add(new Transaction("WITHDRAW", amount, this.id));
         this.balance -= amount;
     }
 

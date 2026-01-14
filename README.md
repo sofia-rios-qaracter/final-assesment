@@ -11,7 +11,7 @@ It beneficial to a modern banking system because it's really robust and hard to 
 Make it easier and faster for developers
 
 ## Summary
-It have all the requirements needed for the exam. Have repostories, models, exceptions
+It have all the requirements needed for the exam. Have repositories, models, exceptions, services, controller
 
 ## Classes of the project
 ### Controllers folder

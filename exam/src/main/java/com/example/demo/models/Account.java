@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import com.example.demo.exceptions.InsufficientBalanceException;
+import com.example.demo.exceptions.InvalidAmountException;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +9,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 import javax.annotation.processing.Generated;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,8 +32,19 @@ public class Account {
 
     private List<Transaction> transactions;
 
+    public Account(@Valid String ownerName, @Valid String iban, @Valid Double balance){
+        this.ownerName = ownerName;
+        this.iban = iban;
+        this.balance = balance;
+        this.transactions = new ArrayList<>();
+    }
+
     public void deposit(@Valid Double amount){
         // amount > 0, add a transaction of type "deposit", update the balance
+        if(amount <= 0) throw new InvalidAmountException("Deposited amount must be positive");
+
+        this.transactions.add(new Transaction("DEPOSIT", amount));
+        this.balance += amount;
     }
 
     public void withdraw(@Valid Double amount){
@@ -37,9 +52,34 @@ public class Account {
         // must check that sufficient balance exists
         // Adds a transaction of type withdraw
         // update balance
+        if(amount <= 0) throw new InvalidAmountException("Withdraw amount must be positive");
+        if(this.balance < amount) throw new InsufficientBalanceException("You don't have enough balance in your account");
+
+        this.transactions.add(new Transaction("WITHDRAW", amount));
+        this.balance -= amount;
     }
 
     public List<Transaction> getTransactions(){
         return this.transactions;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(@Valid String ownerName) {
+        this.ownerName = ownerName;
     }
 }

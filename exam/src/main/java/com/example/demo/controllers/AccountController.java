@@ -15,22 +15,27 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public AccountEntity getAccount(@PathVariable Long id){
+    public Account getAccount(@PathVariable Long id){
         return null;
     }
 
     @PostMapping("/{id}/deposit")
-    public AccountEntity depositToAccount(@PathVariable Long id, @RequestParam Double ammount){
+    public Account depositToAccount(@PathVariable Long id, @RequestParam Double ammount){
         return null;
     }
 
     @PostMapping("/{id}/withdraw")
-    public AccountEntity withdrawToAccount(@PathVariable Long id, @RequestParam Double ammount){
+    public Account withdrawToAccount(@PathVariable Long id, @RequestParam Double ammount){
         return null;
     }
 
     @GetMapping("/{id}/transactions")
-    public List<TransactionEntity> getTransactionsFrom(@PathVariable Long id){
+    public List<Transaction> getTransactionsFrom(@PathVariable Long id){
+        return null;
+    }
+
+    @GetMapping("/search")
+    public List<Account> getAccountByName(@RequestParam String name){
         return null;
     }
 }

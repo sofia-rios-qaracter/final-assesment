@@ -49,4 +49,8 @@ public class AccountService {
     public List<TransactionEntity> getTransactions(Long id){
         return getAccount(id).getTransactions();
     }
+
+    public List<AccountEntity> getAccountByName(String name){
+        return this.accountRepository.findByNameOwnerContaining(name);
+    }
 }
